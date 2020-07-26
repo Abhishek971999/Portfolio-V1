@@ -8,8 +8,9 @@
     <title>Abhishek Mogaveera | Web Developer</title>
     <meta name="description" content="Software Engineer">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" as="style"
+        onload="this.onload=null; this.rel='stylesheet'; document.body.classList.add('fontLoaded')">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
         * {
             margin: 0;
@@ -32,12 +33,16 @@
             height: 100vh;
             width: 100vw;
             overflow: hidden;
-            font-family: 'Montserrat', sans-serif;
+            font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             text-align: center;
+        }
+
+        body.fontLoaded {
+            font-family: 'Montserrat', 'Open Sans', Helvetica, Arial, sans-serif;
         }
 
 
