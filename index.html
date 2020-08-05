@@ -21,19 +21,33 @@
             padding: 0;
             box-sizing: border-box;
         }
+        .theme-light {
+            --color-primary: #0060df;
+            --color-secondary: #fbfbfe;
+            --color-accent: #fd6f53;
+            --font-color: #5a7c8c;
+            --font-secondary:#656890a3;
+            }
+            .theme-dark {
+            --color-primary: #17ed90;
+            --color-secondary: #0A192F;
+            --color-accent: #12cdea;
+            --font-color: #C1CCEB;
+            --font-secondary:rgb(100, 255, 218);
+            }
 
         ::-moz-selection {
-            background: rgb(100, 255, 218);
-            color: #0A192F;
+            background: var(--font-secondary);
+            color: var(--color-secondary);
         }
 
         ::selection {
-            background: rgb(100, 255, 218);
-            color: #0A192F;
+            background: var(--font-secondary);
+            color: var(--color-secondary);
         }
-
+        
         body {
-            background-color: #0A192F;
+            background-color: var(--color-secondary);
             height: 100vh;
             width: 100vw;
             overflow: hidden;
@@ -45,16 +59,91 @@
             text-align: center;
         }
 
-        body.fontLoaded {
-            font-family: 'Montserrat', 'Open Sans', Helvetica, Arial, sans-serif;
-        }
+            body.fontLoaded {
+                font-family: 'Montserrat', 'Open Sans', Helvetica, Arial, sans-serif;
+            }
 
+            .container {
+            background: var(--color-secondary);
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            }
+
+            .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            }
+
+            .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            }
+
+            .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            }
+
+            .slider:before {
+            position: absolute;
+            content: "";
+            height: 40px;
+            width: 40px;
+            left: 0px;
+            bottom: 4px;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+            box-shadow: 0 0px 15px #2020203d;
+            background: white url('https://i.ibb.co/FxzBYR9/night.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            }
+
+            input:checked + .slider {
+            background-color: #5a7c8c;
+            }
+
+            input:focus + .slider {
+            box-shadow: 0 0 1px #5a7c8c;
+            }
+
+            input:checked + .slider:before {
+            -webkit-transform: translateX(24px);
+            -ms-transform: translateX(24px);
+            transform: translateX(24px);
+            background: white url('https://img.icons8.com/color/35/000000/sun.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            }
+
+            /* Rounded sliders */
+            .slider.round {
+            border-radius: 34px;
+            }
+
+            .slider.round:before {
+            border-radius: 50%;
+            }
 
 
         h1 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 500;
-            color: #C1CCEB;
+            color:var(--font-color);
             font-size: 22px;
             letter-spacing: 9px;
             text-transform: uppercase;
@@ -63,7 +152,7 @@
 
         h2 {
             font-family: "Open Sans", "Helvetica Neue", Arial, sans-serif;
-            color: rgb(100, 255, 218);
+            color:var(--font-secondary);
             font-size: 15px;
             letter-spacing: .12em;
             text-transform: lowercase;
@@ -114,14 +203,14 @@
         svg {
             width: 18px;
             height: 18px;
-            color: #C1CCEB;
-            fill: #C1CCEB;
+            color: var(--font-color);
+            fill:var(--font-color);
         }
 
         svg:hover,
         a:hover {
-            color: rgb(100, 255, 218);
-            fill: rgb(100, 255, 218);
+            color: var(--font-secondary);
+            fill: var(--font-secondary);
         }
 
         .left {
@@ -205,6 +294,12 @@
 </head>
 
 <body>
+    <div class="container">
+        <label id="switch" class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+            </label>
+      </div>
     <h1>Abhishek Mogaveera</h1>
     <h2> web developer </h2>
     <div class="left">
@@ -263,6 +358,33 @@
                 href="mailto:abmogaveer971999@gmail.com">abmogaveer971999@gmail.com</a>
         </div>
     </div>
+    <script>
+         // function to set a given theme/color-scheme
+         function setTheme(themeName) {
+            localStorage.setItem('theme', themeName);
+            document.documentElement.className = themeName;
+        }
+
+        // function to toggle between light and dark theme
+        function toggleTheme() {
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                setTheme('theme-light');
+            } else {
+                setTheme('theme-dark');
+            }
+        }
+
+        // Immediately invoked function to set the theme on initial load
+        (function () {
+            if (localStorage.getItem('theme') === 'theme-dark') {
+                setTheme('theme-dark');
+                document.getElementById('slider').checked = false;
+            } else {
+                setTheme('theme-light');
+              document.getElementById('slider').checked = true;
+            }
+        })();
+    </script>
 </body>
 
 </html>
